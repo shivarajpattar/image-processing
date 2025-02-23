@@ -1,0 +1,49 @@
+import cv2
+import numpy as np
+
+# Read the image
+image = cv2.imread("c:\Users\Harshavardhan\Downloads\da7d18b9-1e3b-4c0d-a49b-95de55bfc6d5.jpg")  # Replace with your image path
+
+# Resize image (make it bigger and smaller)
+small = cv2.resize(image, None, fx=0.5, fy=0.5)  # Half size
+big = cv2.resize(image, None, fx=2, fy=2)  # Double size
+
+# Rotate image by 90 degrees
+(h, w) = image.shape[:2]
+center = (w // 2, h // 2)
+rotation_matrix = cv2.getRotationMatrix2D(center, 90, 1.0)
+rotated = cv2.warpAffine(image, rotation_matrix, (w, h))
+
+# Convert image to grayscale
+gray = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+
+# Convert to HSV color space
+hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV)
+
+# Apply Gaussian blur
+blurred = cv2.GaussianBlur(image, (15, 15), 0)
+
+# Detect edges using Canny
+edges = cv2.Canny(image, 100, 200)
+
+# Increase brightness
+brightness_matrix = np.ones(image.shape, dtype="uint8") * 50
+brighter = cv2.add(image, brightness_matrix)
+
+# Decrease brightness
+darker = cv2.subtract(image, brightness_matrix)
+
+# Display results
+cv2.imshow("Original", image)
+cv2.imshow("Small", small)
+cv2.imshow("Big", big)
+cv2.imshow("Rotated", rotated)
+cv2.imshow("Grayscale", gray)
+cv2.imshow("HSV", hsv)
+cv2.imshow("Blurred", blurred)
+cv2.imshow("Edges", edges)
+cv2.imshow("Brighter", brighter)
+cv2.imshow("Darker", darker)
+
+cv2.waitKey(0)
+cv2.destroyAllWindows()
