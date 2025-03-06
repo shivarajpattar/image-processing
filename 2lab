@@ -1,0 +1,33 @@
+import cv2
+import numpy as np
+
+# Load the image
+image_path = "path/to/your/image.jpg"  # Replace with your image path
+img = cv2.imread(image_path)
+
+# Get image dimensions
+height, width, _ = img.shape
+
+# Calculate the dimensions of each part
+part_height = height // 2
+part_width = width // 2
+
+# Extract the four parts
+part1 = img[0:part_height, 0:part_width]
+part2 = img[0:part_height, part_width:width]
+part3 = img[part_height:height, 0:part_width]
+part4 = img[part_height:height, part_width:width]
+
+# Display the parts (optional)
+cv2.imshow("Part 1", part1)
+cv2.imshow("Part 2", part2)
+cv2.imshow("Part 3", part3)
+cv2.imshow("Part 4", part4)
+cv2.waitKey(0)
+cv2.destroyAllWindows()
+
+# Save the parts (optional)
+cv2.imwrite("part1.jpg", part1)
+cv2.imwrite("part2.jpg", part2)
+cv2.imwrite("part3.jpg", part3)
+cv2.imwrite("part4.jpg", part4)
